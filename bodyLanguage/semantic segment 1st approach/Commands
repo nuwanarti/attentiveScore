@@ -1,0 +1,9 @@
+python predict.py --mode predict --image ./myCustom/test/Seq05VD_f05010.png --dataset 'myCustom' --model MobileUNet --checkpoint_path ./checkpoints/latest_model_MobileUNet_CamVid.ckpt
+
+python test.py --mode predict --dataset 'myCustom' --model MobileUNet --checkpoint_path ./checkpoints/latest_model_MobileUNet_CamVid.ckpt
+
+python train.py --mode predict --image ./Images/0001TP_008550.png --dataset 'C
+amVid' --model MobileUNet
+
+
+
