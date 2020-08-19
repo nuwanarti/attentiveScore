@@ -1,0 +1,16 @@
+venv
+venv/*
+__pycache__
+weights/*
+model_simulated_RGB_mgpu_scaling_append.0024.h5
+model_simulated_RGB_mgpu_scaling_append.0071.h5
+final_model.h5
+final_modelfor7.h5
+facialExpressions/api/venv/*
+facialExpressions/api/venv
+bodyLanguage/cdcl-semantic-segmentation/weights/*
+bodyLanguage/cdcl-semantic-segmentation/weights
+model.h5
+**/*.jpg
+**/*.h5
+**/venv/

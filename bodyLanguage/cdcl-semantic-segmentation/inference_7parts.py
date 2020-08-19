@@ -1,12 +1,13 @@
 import os
 import argparse
 import sys
+from scipy.ndimage import label
 
 parser = argparse.ArgumentParser(description='loading eval params')
 parser.add_argument('--gpus', metavar='N', type=int, default=1)
-parser.add_argument('--model', type=str, default='./weights/model_simulated_RGB_mgpu_scaling_append.0024.h5', help='path to the weights file')
-parser.add_argument('--input_folder', type=str, default='./input', help='path to the folder with test images')
-parser.add_argument('--output_folder', type=str, default='./output', help='path to the output folder')
+parser.add_argument('--model', type=str, default='/attentiveness/attentiveScore/bodyLanguage/cdcl-semantic-segmentation/weights/model_simulated_RGB_mgpu_scaling_append.0024.h5', help='path to the weights file')
+parser.add_argument('--input_folder', type=str, default='/attentiveness/attentiveScore/bodyLanguage/cdcl-semantic-segmentation/input', help='path to the folder with test images')
+parser.add_argument('--output_folder', type=str, default='/attentiveness/attentiveScore/bodyLanguage/cdcl-semantic-segmentation/output', help='path to the output folder')
 parser.add_argument('--max', type=bool, default=True)
 parser.add_argument('--average', type=bool, default=False)
 parser.add_argument('--scale', action='append', help='<Required> Set flag', required=True)
@@ -33,6 +34,10 @@ from human_seg.pascal_voc_human_seg_gt_7parts import human_seg_combine_argmax, h
 human_part = [0,1,2,3,4,5,6]
 human_ori_part = [0,1,2,3,4,5,6]
 seg_num = 7 # current model supports 7 parts only
+
+# human_part = [0]
+# human_ori_part = [0]
+# seg_num = 1 # current model supports 7 parts only
 
 def recover_flipping_output(oriImg, part_ori_size):
     part_ori_size = part_ori_size[:, ::-1, :]
@@ -183,8 +188,14 @@ if __name__ == '__main__':
             seg_argmax *= seg_max_thres
             seg_canvas = human_seg_combine_argmax_rgb(seg_argmax)
             cur_canvas = cv2.imread(args.input_folder+'/'+filename)
-            canvas = cv2.addWeighted(seg_canvas, 0.6, cur_canvas, 0.4, 0)
-            filename = '%s/%s.jpg'%(args.output_folder,'seg_'+filename)
-            cv2.imwrite(filename, canvas) 
+            canvas = cv2.addWeighted(seg_canvas, 1, cur_canvas, 0, 0)
+
+            gray = cv2.cvtColor(canvas, cv2.COLOR_BGR2GRAY)
+            L,_ = label(gray)
+            mask = (L!=L[0,0])
+            out = canvas[np.ix_(mask.any(1), mask.any(0))]
+            # canvas = cv2.addWeighted(seg_canvas, 0.6, cur_canvas, 0.4, 0)
+            filename = '%s/%s'%(args.output_folder,'seg_'+filename)
+            cv2.imwrite(filename, out) 
 
 

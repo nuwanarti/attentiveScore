@@ -1,8 +1,10 @@
 from configobj import ConfigObj
 import numpy as np
+import os
 
 
 def config_reader():
+    os.chdir(os.path.dirname(__file__))
     config = ConfigObj('config')
 
     param = config['param']

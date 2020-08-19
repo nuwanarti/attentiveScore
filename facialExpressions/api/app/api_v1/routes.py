@@ -3,11 +3,15 @@ from flask import Flask, jsonify, request
 import json
 from PIL import Image
 import cv2
+import base64
+import io
+import numpy as np
 # import pandas as pd
 from . import api
 
 # from regressor import fun
 from . import regressor
+from . import bodyClassifier
 # from regressor import fun
 
 
@@ -43,13 +47,31 @@ class BodyLang(Resource):
         images = json_data['images']
         imgArray = []
         for img in images:
-            imgdata = base64.b64decode(str(img))
+            img = str(img)
+            strOne = img.partition(",")[2]
+            # pad = len(strOne)%4
+            # strOne += b"="*pad
+            # print(str(img))
+            # break
+            imgdata = base64.b64decode(strOne)
+            # break
             m = Image.open(io.BytesIO(imgdata))
-            imgArray.append(cv2.cvtColor(np.array(m), cv2.COLOR_BGR2RGB))
-        print(imgArray)
+            m = cv2.cvtColor(np.array(m), cv2.COLOR_BGR2RGB)
+            # cv2.imwrite('image.png', m)
+            imgArray.append(m)
+        # print(imgArray)
+        values = bodyClassifier.classifyImages(imgArray)
+        print('*********************************************')
+        print(values)
+        print('*********************************************')
+        value = 0
+        for i in values:
+            value = value + i
+        v = str(value/len(values))
+        print('final value ', v)
         # value = 
         return {
-            "status": "done"
+            "status": v
         }, 200, {'Access-Control-Allow-Origin': '*'}
 
 class DB(Resource):
