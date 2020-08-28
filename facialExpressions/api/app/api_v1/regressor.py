@@ -20,7 +20,7 @@ def fun(jsonObj):
     vectorAssembler = VectorAssembler(inputCols = ['joy', 'fear', 'disgust', 'sadness', 'anger', 'surprise', 'contempt', 'valence', 'engagement', 'smile', 'innerBrowRaise', 'browRaise', 'browFurrow', 'noseWrinkle', 'upperLipRaise', 'lipCornerDepressor', 'chinRaise', 'lipPucker', 'lipPress', 'lipSuck', 'mouthOpen', 'smirk', 'eyeClosure', 'eyeWiden', 'cheekRaise', 'lidTighten', 'dimpler', 'lipStretch', 'jawDrop'], outputCol = 'features')
     vface_df = vectorAssembler.transform(df_sp)
     # vface_df.take(1)
-    m = DecisionTreeRegressionModel.load('/Users/rt/iCloud Drive (Archive)/Documents/myPersonalProjects/gayan/decisionTreeModel1.pckl')
+    m = DecisionTreeRegressionModel.load('/home/manula/Documents/attentiveScore/facialExpressions/decisionTreeModel1.pckl')
     dt_predictions1 = m.transform(vface_df)
     
     return dt_predictions1.select('prediction').describe().collect()[1]['prediction']

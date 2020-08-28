@@ -11,13 +11,14 @@ def black_background_thumbnail(path_to_image, thumbnail_size=(300,300)):
 
 if __name__ == '__main__':
 
-    path = '/home/rt/Documents/gayan/attentiveScore/bodyLanguage/cdcl-semantic-segmentation/output/'
+    path = '/home/manula/Documents/attentiveScore/bodyLanguage/cdcl-semantic-segmentation/output/'
     files = os.listdir(path)
     for file in files:
         # print(file)
         img = black_background_thumbnail(path + file)
-        img.save('/home/rt/Documents/gayan/attentiveScore/bodyLanguage/resized/' + file)
+        img.save('/home/manula/Documents/attentiveScore/bodyLanguage/resized/' + file)
     # img.show()
+
 
 # from PIL import Image
 # import os

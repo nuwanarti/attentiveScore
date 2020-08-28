@@ -14,3 +14,11 @@ model.h5
 **/*.jpg
 **/*.h5
 **/venv/
+facialExpressions/api/app/api_v1/__pycache__/*
+facialExpressions/api/app/api_v1/__pycache__
+bodyLanguage/.ipynb_checkpoints/*
+bodyLanguage/.ipynb_checkpoints
+bodyLanguage/cdcl-semantic-segmentation/output/
+bodyLanguage/cdcl-semantic-segmentation/input/
+bodyLanguage/cdcl-semantic-segmentation/output/*
+bodyLanguage/cdcl-semantic-segmentation/input/*

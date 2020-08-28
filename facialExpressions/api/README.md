@@ -35,7 +35,7 @@ The only endpoint setup is: /api/v1/status which returns a status message.
           ├── test_db.py
           └── conftest.py
   ```
-  
+  opencv==3.4.2
 ## Project Setup
 ```
 >> virtualenv venv -p python3

@@ -22,9 +22,9 @@ batch_size = 32
 img_height = 300
 img_width = 300
 
-model = keras.models.load_model("/home/rt/Documents/gayan/attentiveScore/bodyLanguage/final_model.h5")
+model = keras.models.load_model("/home/manula/Documents/attentiveScore/bodyLanguage/final_model.h5")
 
-data_dir = '/home/rt/Documents/gayan/attentiveScore/bodyLanguage/resized/'
+data_dir = '/home/manula/Documents/attentiveScore/bodyLanguage/resized/'
 
 # predicting images
 
